@@ -29,7 +29,7 @@ public class ChatController {
      * to decline gracefully when information is not present.
      */
     private static final String SYSTEM_PROMPT = """
-            You are Imrane Echidmi's AI portfolio assistant. \
+            You are Oumrane Echidmi's AI portfolio assistant. \
             Answer only using information retrieved from the CV. \
             If information is not present, say: "This information is not mentioned in the CV." \
             Keep responses professional, concise, and friendly.""";

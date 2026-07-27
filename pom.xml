@@ -13,7 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>RAG</name>
     <description>RAG (Retrieval-Augmented Generation) portfolio chatbot — Spring Boot 4.0.3 + Spring AI 2.0.0-M2. Ingests a CV PDF, stores embeddings in MariaDB, and answers questions via a modern chat UI powered by DeepSeek and Ollama.</description>
-    <url>https://github.com/imrane-echidmi/rag-portfolio-assistant</url>
+    <url>https://github.com/oumrane-echidmi/rag-portfolio-assistant</url>
     <licenses>
         <license>
             <name>MIT License</name>
@@ -22,14 +22,14 @@
     </licenses>
     <developers>
         <developer>
-            <name>Imrane Echidmi</name>
-            <url>https://github.com/imrane-echidmi</url>
+            <name>Oumrane Echidmi</name>
+            <url>https://github.com/oumrane-echidmi</url>
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:git://github.com/imrane-echidmi/rag-portfolio-assistant.git</connection>
-        <developerConnection>scm:git:ssh://github.com:imrane-echidmi/rag-portfolio-assistant.git</developerConnection>
-        <url>https://github.com/imrane-echidmi/rag-portfolio-assistant</url>
+        <connection>scm:git:git://github.com/oumrane-echidmi/rag-portfolio-assistant.git</connection>
+        <developerConnection>scm:git:ssh://github.com:oumrane-echidmi/rag-portfolio-assistant.git</developerConnection>
+        <url>https://github.com/oumrane-echidmi/rag-portfolio-assistant</url>
     </scm>
     <properties>
         <java.version>25</java.version>

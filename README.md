@@ -134,7 +134,7 @@ POST /api/chat
 Content-Type: application/json
 
 {
-  "message": "What technologies does Imrane know?"
+  "message": "What technologies does Oumrane know?"
 }
 ```
 
@@ -142,7 +142,7 @@ Content-Type: application/json
 
 ```json
 {
-  "answer": "Imrane is proficient in Java, Spring Boot, Python..."
+  "answer": "Oumrane is proficient in Java, Spring Boot, Python..."
 }
 ```
 
@@ -263,4 +263,4 @@ MIT — see the [LICENSE](LICENSE) file for details.
 
 This project serves as an interactive portfolio/resume chatbot. Upload your CV as a PDF, and visitors can ask natural-language questions about your experience, skills, education, and projects — with answers grounded in the actual document content.
 
-Built by [Imrane Echidmi](https://github.com/imrane-echidmi).
+Built by [Oumrane Echidmi](https://github.com/oumrane-echidmi).

@@ -1,5 +1,5 @@
 /* ============================================================
-   Imrane Echidmi — AI Portfolio
+   Oumrane Echidmi — AI Portfolio
    Chat Application JavaScript
    ============================================================ */
 
