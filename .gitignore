@@ -33,5 +33,6 @@ build/
 .vscode/
 
 ### Claude Code ###
-CLAUDE.md
+# CLAUDE.md is tracked — it documents the codebase for Claude Code users.
+# .claude/ contains local personal settings and should never be committed.
 .claude/
