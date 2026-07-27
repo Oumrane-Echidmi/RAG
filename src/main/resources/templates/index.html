@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imrane Echidmi — AI Portfolio</title>
+    <meta name="theme-color" content="#0b1020">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Background -->
+    <div class="bg-gradient"></div>
+
+    <!-- Main Container -->
+    <div class="app-container">
+
+        <!-- Header / Hero Section -->
+        <header class="hero">
+            <div class="avatar-wrapper">
+                <div class="avatar-ring"></div>
+                <img src="/me.png" alt="Imrane Echidmi" class="avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="avatar-fallback" style="display:none;">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                </div>
+                <div class="avatar-status"></div>
+            </div>
+            <h1 class="hero-name">Imrane Echidmi</h1>
+            <p class="hero-title">Software engineer portfolio assistant</p>
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                <span class="badge-text">Available for portfolio questions</span>
+            </div>
+        </header>
+
+        <!-- Chat Container -->
+        <main class="chat-container" id="chatContainer">
+
+            <!-- Welcome Message -->
+            <div class="welcome-card glass" id="welcomeCard">
+                <div class="welcome-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                        <line x1="12" x2="12" y1="19" y2="22"/>
+                    </svg>
+                </div>
+                <h2 class="welcome-heading">Ask about Imrane's background, projects, and skills.</h2>
+                <p class="welcome-sub">Choose a topic or type a custom question.</p>
+                <ul class="welcome-list">
+                    <li><span>Internships</span></li>
+                    <li><span>Technical skills</span></li>
+                    <li><span>Projects</span></li>
+                    <li><span>Education</span></li>
+                    <li><span>Experience</span></li>
+                </ul>
+                <p class="welcome-hint">Try: <em>"What technologies do you know?"</em></p>
+            </div>
+
+            <!-- Chat Messages Area -->
+            <div class="messages-area" id="messagesArea"></div>
+
+            <!-- Typing Indicator -->
+            <div class="typing-indicator glass" id="typingIndicator" style="display: none;">
+                <div class="typing-avatar">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                        <line x1="12" x2="12" y1="19" y2="22"/>
+                    </svg>
+                </div>
+                <div class="typing-dots">
+                    <span class="typing-dot"></span>
+                    <span class="typing-dot"></span>
+                    <span class="typing-dot"></span>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Quick Action Chips -->
+        <div class="chips-container" id="chipsContainer">
+            <button class="chip glass" data-question="Tell me about your internships">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Tell me about your internships
+            </button>
+            <button class="chip glass" data-question="What technologies do you know?">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                What technologies do you know?
+            </button>
+            <button class="chip glass" data-question="Show me your projects">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                Show me your projects
+            </button>
+            <button class="chip glass" data-question="Tell me about your education">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 3 3 6 3s6-1 6-3v-5"/></svg>
+                Tell me about your education
+            </button>
+        </div>
+
+        <!-- Input Area -->
+        <footer class="input-area">
+            <div class="input-wrapper glass">
+                <textarea
+                    id="messageInput"
+                    class="message-input"
+                    placeholder="Ask me anything about my experience..."
+                    rows="1"
+                    autofocus
+                ></textarea>
+                <button class="send-button" id="sendButton" aria-label="Send message">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"/>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                    </svg>
+                </button>
+            </div>
+            <p class="input-hint">Powered by AI — answers based on my CV content</p>
+        </footer>
+
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
