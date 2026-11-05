@@ -7,8 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
  * Sanity test that verifies the Spring application context loads successfully.
  *
  * <p>This test requires all external dependencies (MariaDB, Ollama) to be
- * available. It will fail if the database is unreachable, the OpenAI/DeepSeek
- * API key is invalid, or the embedding model is not running.</p>
+ * available. It will fail if the database is unreachable or the Ollama chat
+ * and embedding models are not running.</p>
  */
 @SpringBootTest
 class RagApplicationTests {

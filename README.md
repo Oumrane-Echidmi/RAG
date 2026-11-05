@@ -1,11 +1,19 @@
 # 🤖 RAG Portfolio Assistant
 
-**Retrieval-Augmented Generation (RAG) chatbot powered by Spring AI** — ingest a CV/resume PDF and ask questions about it through a sleek chat interface. Built with Spring Boot 4.0.3 and Spring AI 2.0.0-M2.
+**Retrieval-Augmented Generation (RAG) chatbot powered by Spring AI** — ingest a CV/resume PDF and ask questions about it through a sleek chat interface. Built with Spring Boot 4.0.3 and Spring AI 2.0.0-M2, running entirely on local Ollama models.
 
 [![Java](https://img.shields.io/badge/Java-25-red.svg)](https://jdk.java.net/25/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.3-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![Spring AI](https://img.shields.io/badge/Spring%20AI-2.0.0--M2-blue.svg)](https://spring.io/projects/spring-ai)
+[![Ollama](https://img.shields.io/badge/Ollama-local-black.svg)](https://ollama.com)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+---
+
+## 📸 Screenshot
+
+<!-- TODO: Replace docs/screenshot.png with a screenshot of the chat UI. -->
+![RAG Portfolio Assistant chat UI](docs/screenshot.png)
 
 ---
 
@@ -15,7 +23,7 @@
 - **💬 RAG Chat** — Ask questions about the document through a modern chat UI or REST API. Answers are grounded in the ingested content, not model hallucination.
 - **🔍 Semantic Search** — MariaDB vector similarity search finds the most relevant document chunks for each question.
 - **🎨 Modern UI** — Responsive chat interface with typing indicators, markdown rendering, quick-action chips, and dark theme.
-- **🏠 Local Embeddings** — Uses Ollama (`mxbai-embed-large`) for free, local embedding generation — no paid embedding API needed.
+- **🏠 100% Local AI** — Both chat (`llama3.2`) and embeddings (`mxbai-embed-large`) run locally through Ollama. No external API keys or paid services.
 
 ---
 
@@ -40,7 +48,7 @@
                                                   ▼
 ┌──────────────┐     Startup (CLR)       ┌────────────────┐
 │  document.pdf│ ───────────────────────▶│   Chat Model   │
-│  (CV/Resume) │                         │ (DeepSeek/API) │
+│  (CV/Resume) │                         │    (Ollama)    │
 └──────────────┘                         └───────┬────────┘
                                                   │
                                                   │ 4. Augmented prompt → answer
@@ -61,7 +69,7 @@
 | **Embed** | Ollama (`mxbai-embed-large`) | Generates 1024-dimension vector embeddings |
 | **Store** | MariaDB Vector Store | Persists embeddings with similarity search index |
 | **Retrieve** | `QuestionAnswerAdvisor` | Finds top-K relevant chunks for each query |
-| **Generate** | DeepSeek (`deepseek-chat`) | Produces a grounded answer from retrieved context |
+| **Generate** | Ollama (`llama3.2`) | Produces a grounded answer from retrieved context |
 
 ---
 
@@ -72,22 +80,19 @@
 | Dependency | Version | Purpose |
 |-----------|---------|---------|
 | [Java](https://jdk.java.net/25/) | **25+** | Runtime |
-| [MariaDB](https://mariadb.org/download/) | 11.4+ | Vector store |
-| [Ollama](https://ollama.com) | Latest | Local embeddings |
-| [DeepSeek API Key](https://platform.deepseek.com) | — | Chat model |
+| [MariaDB](https://mariadb.org/download/) | 11.8+ | Vector store (native `VECTOR` type) |
+| [Ollama](https://ollama.com) | Latest | Local chat + embedding models |
 
-### 1. Clone & Configure
+> Docker users can skip the manual Java/MariaDB/Ollama setup and use the Compose stack described below.
+
+### 1. Clone the Project
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/rag-portfolio-assistant.git
 cd rag-portfolio-assistant
 ```
 
-Edit `src/main/resources/application.properties` and set your DeepSeek API key:
-
-```properties
-spring.ai.openai.api-key=sk-your-deepseek-key
-```
+No API key is needed — the default configuration points at a local Ollama instance.
 
 ### 2. Start MariaDB
 
@@ -96,14 +101,15 @@ docker run -d --name mariadb-rag \
   -p 3307:3306 \
   -e MARIADB_ROOT_PASSWORD=root \
   -e MARIADB_DATABASE=vdtestingdb \
-  mariadb:11.4
+  mariadb:11.8
 ```
 
-### 3. Start Ollama & Pull Model
+### 3. Start Ollama & Pull Models
 
 ```bash
 ollama serve                    # Start Ollama (if not already running)
-ollama pull mxbai-embed-large   # Pull the embedding model (1024 dims)
+ollama pull llama3.2            # Chat model
+ollama pull mxbai-embed-large   # Embedding model (1024 dims)
 ```
 
 ### 4. Add Your CV PDF
@@ -122,6 +128,32 @@ src/main/resources/docs/document.pdf
 ```
 
 Open **http://localhost:8080** in your browser and start asking questions!
+
+### 6. Run with Docker (alternative)
+
+The `compose.yaml` stack runs the application together with MariaDB and Ollama,
+and automatically pulls both models on first start.
+
+```bash
+docker compose up --build -d
+```
+
+Open **http://localhost:8080**. Useful commands:
+
+```bash
+docker compose logs -f app   # application logs
+docker compose down          # stop the stack (keeps data volumes)
+```
+
+Ports exposed: app `8080`, MariaDB `3307`, Ollama `11434`.
+
+To use a different local chat model:
+
+```bash
+# PowerShell: $env:OLLAMA_CHAT_MODEL="qwen2.5:7b"
+export OLLAMA_CHAT_MODEL=qwen2.5:7b
+docker compose up --build -d
+```
 
 ---
 
@@ -188,24 +220,16 @@ src/
 
 All configuration lives in `application.properties`. Here are the key properties:
 
-### DeepSeek (Chat Model)
-
-```properties
-spring.ai.openai.api-key=your-deepseek-api-key-here
-spring.ai.openai.base-url=https://api.deepseek.com
-spring.ai.openai.chat.options.model=deepseek-chat
-spring.ai.openai.chat.options.temperature=0.7
-```
-
-### Ollama (Embeddings)
+### Ollama (Chat + Embeddings)
 
 ```properties
 spring.ai.ollama.base-url=http://localhost:11434
+spring.ai.ollama.chat.options.model=llama3.2
+spring.ai.ollama.chat.options.temperature=0.7
 spring.ai.ollama.embedding.options.model=mxbai-embed-large
-spring.autoconfigure.exclude=...OllamaChatAutoConfiguration
 ```
 
-> **Why the exclude?** We use Ollama only for embeddings. Chat goes through DeepSeek. Excluding `OllamaChatAutoConfiguration` prevents Spring AI from creating a conflicting chat model bean.
+> Both the chat model and the embedding model are served by Ollama. To use a different chat model, pull it first (`ollama pull <model>`) and update `spring.ai.ollama.chat.options.model`.
 
 ### MariaDB (Vector Store)
 
@@ -221,13 +245,17 @@ spring.ai.vectorstore.mariadb.dimensions=1024
 
 ## 🛠 How to Customize
 
-### Use a Different Chat Provider
+### Change the Chat Model
 
-Replace the OpenAI-compatible properties with any provider Spring AI supports:
+Pull the model locally and update the property (or set the `OLLAMA_CHAT_MODEL` environment variable when using Docker):
 
-- **OpenAI**: Set `spring.ai.openai.api-key` and reset `base-url` to default
-- **Azure OpenAI**: Use `spring.ai.azure.openai.*` properties
-- **Ollama Chat**: Remove the autoconfigure exclude and set `spring.ai.ollama.chat.*`
+```bash
+ollama pull qwen2.5:7b
+```
+
+```properties
+spring.ai.ollama.chat.options.model=qwen2.5:7b
+```
 
 ### Change the Embedding Model
 
@@ -240,6 +268,10 @@ spring.ai.vectorstore.mariadb.dimensions=<matching-dimension>
 ### Customize Chunking
 
 Edit `IngestionService.java` to adjust chunk size, overlap, or max chunks.
+
+### Use a Remote Provider
+
+The project is wired for local Ollama by default. To use a remote provider, add the corresponding Spring AI starter (for example `spring-ai-starter-model-openai`) and configure its `spring.ai.*` properties. No code changes are required because `ChatController` uses Spring AI's `ChatClient.Builder`.
 
 ---
 

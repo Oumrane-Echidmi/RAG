@@ -13,11 +13,10 @@ import org.springframework.context.annotation.Primary;
  *
  * <p>Provides a {@code @Primary} {@link EmbeddingModel} backed by a local Ollama
  * instance running {@code mxbai-embed-large}. This ensures the {@code VectorStore}
- * and {@code QuestionAnswerAdvisor} use local embeddings instead of calling an
- * external API that may not support embeddings (e.g., DeepSeek).</p>
+ * and {@code QuestionAnswerAdvisor} use local embeddings.</p>
  *
- * <p>Chat remains on the remote provider configured via {@code spring.ai.openai.*}
- * properties (pointing at DeepSeek in this project).</p>
+ * <p>Chat is also handled by Ollama ({@code llama3.2}) through Spring AI's
+ * auto-configured {@code ChatModel}; no external API is required.</p>
  */
 @Configuration
 public class AiConfig {
