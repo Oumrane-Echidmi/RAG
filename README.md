@@ -13,7 +13,8 @@
 ## 📸 Screenshot
 
 <!-- TODO: Replace docs/screenshot.png with a screenshot of the chat UI. -->
-![RAG Portfolio Assistant chat UI](docs/screenshot.png)
+![RAG Portfolio Assistant chat UI](<img width="1912" height="856" alt="{F18340D3-DF91-48BA-A2A5-90B2D184AF95}" src="https://github.com/user-attachments/assets/c3e4bae2-1718-43fa-be67-2a72b1b07530" />
+)
 
 ---
 
